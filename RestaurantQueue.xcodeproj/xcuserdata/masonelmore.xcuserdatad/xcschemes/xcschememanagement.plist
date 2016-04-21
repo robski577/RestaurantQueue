@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>RestaurantQueueTV.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>05EF4B121CC98C56003C8F8B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>05EF4B2B1CC98C97003C8F8B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
