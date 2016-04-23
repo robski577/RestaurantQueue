@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var reservations: [Reservation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func addReservation(reservation: Reservation) {
+        reservations.append(reservation)
+        
+        // TODO: Send reservation to TV
+    }
 
 }
 
