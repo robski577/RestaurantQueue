@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0535B0EC1CCB249E0066D9C3 /* PassReservationBackToPreviousViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0535B0EB1CCB249E0066D9C3 /* PassReservationBackToPreviousViewControllerDelegateProtocol.swift */; };
 		05EF4B171CC98C56003C8F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B161CC98C56003C8F8B /* AppDelegate.swift */; };
-		05EF4B191CC98C56003C8F8B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B181CC98C56003C8F8B /* ViewController.swift */; };
+		05EF4B191CC98C56003C8F8B /* ReservationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B181CC98C56003C8F8B /* ReservationListViewController.swift */; };
 		05EF4B1C1CC98C56003C8F8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4B1A1CC98C56003C8F8B /* Main.storyboard */; };
 		05EF4B1E1CC98C56003C8F8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4B1D1CC98C56003C8F8B /* Assets.xcassets */; };
 		05EF4B211CC98C56003C8F8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4B1F1CC98C56003C8F8B /* LaunchScreen.storyboard */; };
@@ -18,12 +19,14 @@
 		05EF4B361CC98C97003C8F8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4B351CC98C97003C8F8B /* Assets.xcassets */; };
 		05EF4B3E1CC9A5E6003C8F8B /* AddReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B3D1CC9A5E6003C8F8B /* AddReservationViewController.swift */; };
 		05EF4B401CC9A758003C8F8B /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B3F1CC9A758003C8F8B /* Reservation.swift */; };
+		05EF4B441CCB17F8003C8F8B /* ReservationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B431CCB17F8003C8F8B /* ReservationCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0535B0EB1CCB249E0066D9C3 /* PassReservationBackToPreviousViewControllerDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassReservationBackToPreviousViewControllerDelegateProtocol.swift; sourceTree = "<group>"; };
 		05EF4B131CC98C56003C8F8B /* RestaurantQueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantQueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05EF4B161CC98C56003C8F8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		05EF4B181CC98C56003C8F8B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		05EF4B181CC98C56003C8F8B /* ReservationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationListViewController.swift; sourceTree = "<group>"; };
 		05EF4B1B1CC98C56003C8F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		05EF4B1D1CC98C56003C8F8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		05EF4B201CC98C56003C8F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +39,7 @@
 		05EF4B371CC98C97003C8F8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05EF4B3D1CC9A5E6003C8F8B /* AddReservationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReservationViewController.swift; sourceTree = "<group>"; };
 		05EF4B3F1CC9A758003C8F8B /* Reservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
+		05EF4B431CCB17F8003C8F8B /* ReservationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,13 +82,15 @@
 			isa = PBXGroup;
 			children = (
 				05EF4B161CC98C56003C8F8B /* AppDelegate.swift */,
-				05EF4B181CC98C56003C8F8B /* ViewController.swift */,
+				05EF4B181CC98C56003C8F8B /* ReservationListViewController.swift */,
 				05EF4B1A1CC98C56003C8F8B /* Main.storyboard */,
 				05EF4B1D1CC98C56003C8F8B /* Assets.xcassets */,
 				05EF4B1F1CC98C56003C8F8B /* LaunchScreen.storyboard */,
 				05EF4B221CC98C56003C8F8B /* Info.plist */,
 				05EF4B3D1CC9A5E6003C8F8B /* AddReservationViewController.swift */,
 				05EF4B3F1CC9A758003C8F8B /* Reservation.swift */,
+				05EF4B431CCB17F8003C8F8B /* ReservationCell.swift */,
+				0535B0EB1CCB249E0066D9C3 /* PassReservationBackToPreviousViewControllerDelegateProtocol.swift */,
 			);
 			path = RestaurantQueue;
 			sourceTree = "<group>";
@@ -203,8 +209,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05EF4B191CC98C56003C8F8B /* ViewController.swift in Sources */,
+				05EF4B191CC98C56003C8F8B /* ReservationListViewController.swift in Sources */,
 				05EF4B171CC98C56003C8F8B /* AppDelegate.swift in Sources */,
+				0535B0EC1CCB249E0066D9C3 /* PassReservationBackToPreviousViewControllerDelegateProtocol.swift in Sources */,
+				05EF4B441CCB17F8003C8F8B /* ReservationCell.swift in Sources */,
 				05EF4B401CC9A758003C8F8B /* Reservation.swift in Sources */,
 				05EF4B3E1CC9A5E6003C8F8B /* AddReservationViewController.swift in Sources */,
 			);
@@ -411,6 +419,7 @@
 				05EF4B271CC98C56003C8F8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		05EF4B381CC98C97003C8F8B /* Build configuration list for PBXNativeTarget "RestaurantQueueTV" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +428,7 @@
 				05EF4B3A1CC98C97003C8F8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

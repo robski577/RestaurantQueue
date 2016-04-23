@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Reservation information neatly packaged inside of a structure.
 struct Reservation {
     var name: String
     var size: Int

@@ -10,10 +10,11 @@ import UIKit
 
 class AddReservationViewController: UIViewController {
 
+    static var delegate: passReservationBackToPreviousViewControllerDelegate!
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var sizeTextField: UITextField!
     @IBOutlet weak var waitTimeTextField: UITextField!
-    var reservation: Reservation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,18 +24,22 @@ class AddReservationViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // Create a new reservation when the Add button is clicked.
+    
+    // MARK: Event Handlers
+    
+    // Add a new reservation to the list and leave the view when the Add button is clicked.
     @IBAction func addButtonClicked(sender: UIButton) {
         if isValidData() {
             let name = nameTextField.text
             let size = Int(sizeTextField.text!)
             let waitTime = Int(waitTimeTextField.text!)
-            reservation = Reservation(name: name!, size: size!, waitTime: waitTime!)
+            let reservation = Reservation(name: name!, size: size!, waitTime: waitTime!)
             
-            // TODO: Pass the reservation back to the reservation list to add to the TV.
+            AddReservationViewController.delegate.passReservationBackToPreviousViewController(reservation)
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
-
+    
     
     // MARK: Data Validation
     
@@ -72,11 +77,15 @@ class AddReservationViewController: UIViewController {
         return false
     }
     
-    // Pops up an alert for the user.
+    
+    // MARK: Helper Functions
+    
+    // Pop up an alert for the user.
     private func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
         alertController.addAction(alertAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
 }

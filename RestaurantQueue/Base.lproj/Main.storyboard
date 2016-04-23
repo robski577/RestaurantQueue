@@ -9,7 +9,7 @@
         <!--Reservation List-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Reservation List" id="BYZ-38-t0r" customClass="ViewController" customModule="RestaurantQueue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReservationList" title="Reservation List" id="BYZ-38-t0r" customClass="ReservationListViewController" customModule="RestaurantQueue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -22,27 +22,33 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GxT-hz-fii">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="Reservation Cell" id="GxT-hz-fii" customClass="ReservationCell" customModule="RestaurantQueue" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GxT-hz-fii" id="SuM-tM-9l8">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Party Name " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcL-x7-kPC">
-                                                    <rect key="frame" x="3" y="11" width="143" height="21"/>
+                                                    <rect key="frame" x="21" y="11" width="143" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="lcL-x7-kPC" firstAttribute="centerY" secondItem="SuM-tM-9l8" secondAttribute="centerY" id="PHM-4O-UyL"/>
-                                                <constraint firstItem="lcL-x7-kPC" firstAttribute="leading" secondItem="SuM-tM-9l8" secondAttribute="leadingMargin" constant="-5" id="cRv-kS-GMH"/>
+                                                <constraint firstItem="lcL-x7-kPC" firstAttribute="centerY" secondItem="SuM-tM-9l8" secondAttribute="centerY" id="fJq-jh-s5K"/>
+                                                <constraint firstItem="lcL-x7-kPC" firstAttribute="leading" secondItem="SuM-tM-9l8" secondAttribute="leadingMargin" constant="13" id="h9b-A0-h9E"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="lcL-x7-kPC" id="Y83-1N-9oz"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="E8w-va-COf"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -60,6 +66,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <keyCommands/>
+                    <connections>
+                        <outlet property="reservationTableView" destination="Frw-PV-F7M" id="5X6-gj-eEw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -68,7 +78,7 @@
         <!--Add Reservation-->
         <scene sceneID="dX9-T7-HWQ">
             <objects>
-                <viewController title="Add Reservation" id="cA2-hH-yQR" customClass="AddReservationViewController" customModule="RestaurantQueue" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddReservation" title="Add Reservation" id="cA2-hH-yQR" customClass="AddReservationViewController" customModule="RestaurantQueue" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jE3-mw-E5b"/>
                         <viewControllerLayoutGuide type="bottom" id="LR7-0f-kTT"/>
