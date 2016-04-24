@@ -14,7 +14,6 @@ class AddReservationViewController: UIViewController {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var sizeTextField: UITextField!
-    @IBOutlet weak var waitTimeTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +31,7 @@ class AddReservationViewController: UIViewController {
         if isValidData() {
             let name = nameTextField.text
             let size = Int(sizeTextField.text!)
-            let waitTime = Int(waitTimeTextField.text!)
-            let reservation = Reservation(name: name!, size: size!, waitTime: waitTime!)
-            
+            let reservation = Reservation(name: name!, size: size!)
             AddReservationViewController.delegate.passReservationBackToPreviousViewController(reservation)
             self.navigationController?.popViewControllerAnimated(true)
         }
