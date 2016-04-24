@@ -14,7 +14,7 @@
 		05EF4B1E1CC98C56003C8F8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4B1D1CC98C56003C8F8B /* Assets.xcassets */; };
 		05EF4B211CC98C56003C8F8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4B1F1CC98C56003C8F8B /* LaunchScreen.storyboard */; };
 		05EF4B2F1CC98C97003C8F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B2E1CC98C97003C8F8B /* AppDelegate.swift */; };
-		05EF4B311CC98C97003C8F8B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B301CC98C97003C8F8B /* ViewController.swift */; };
+		05EF4B311CC98C97003C8F8B /* TVReservationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B301CC98C97003C8F8B /* TVReservationListViewController.swift */; };
 		05EF4B341CC98C97003C8F8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4B321CC98C97003C8F8B /* Main.storyboard */; };
 		05EF4B361CC98C97003C8F8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05EF4B351CC98C97003C8F8B /* Assets.xcassets */; };
 		05EF4B3E1CC9A5E6003C8F8B /* AddReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B3D1CC9A5E6003C8F8B /* AddReservationViewController.swift */; };
@@ -35,7 +35,7 @@
 		05EF4B221CC98C56003C8F8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05EF4B2C1CC98C97003C8F8B /* RestaurantQueueTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantQueueTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05EF4B2E1CC98C97003C8F8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		05EF4B301CC98C97003C8F8B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		05EF4B301CC98C97003C8F8B /* TVReservationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVReservationListViewController.swift; sourceTree = "<group>"; };
 		05EF4B331CC98C97003C8F8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		05EF4B351CC98C97003C8F8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		05EF4B371CC98C97003C8F8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				05EF4B2E1CC98C97003C8F8B /* AppDelegate.swift */,
-				05EF4B301CC98C97003C8F8B /* ViewController.swift */,
+				05EF4B301CC98C97003C8F8B /* TVReservationListViewController.swift */,
 				817477161CCD565600C74963 /* TableCell.swift */,
 				05EF4B321CC98C97003C8F8B /* Main.storyboard */,
 				05EF4B351CC98C97003C8F8B /* Assets.xcassets */,
@@ -235,7 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				817477171CCD565600C74963 /* TableCell.swift in Sources */,
-				05EF4B311CC98C97003C8F8B /* ViewController.swift in Sources */,
+				05EF4B311CC98C97003C8F8B /* TVReservationListViewController.swift in Sources */,
 				8174771B1CCD581300C74963 /* Reservation.swift in Sources */,
 				05EF4B2F1CC98C97003C8F8B /* AppDelegate.swift in Sources */,
 			);
