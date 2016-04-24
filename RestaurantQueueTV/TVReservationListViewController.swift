@@ -29,7 +29,7 @@ class TVReservationListViewController: UIViewController, UITableViewDelegate, UI
         df.dateFormat = "yyyy-mm-dd HH:mm:ss"
         let date = NSDate().dateByAddingTimeInterval(-500.00)
         reservations.append(Reservation(name: "steve", size: 3, arrivalTime: date))
-        let secondDate = NSDate().dateByAddingTimeInterval(-800.00)
+        let secondDate = NSDate().dateByAddingTimeInterval(-8000.00)
         reservations.append(Reservation(name: "james", size: 5, arrivalTime: secondDate))
         let timer = NSTimer(timeInterval: 10.0, target: self, selector: #selector(calculateAverageWait), userInfo: nil, repeats: true)
         timer.fire()
@@ -42,22 +42,36 @@ class TVReservationListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell") as! TableCell
-        
-        let reservation = reservations[indexPath.row]
-        cell.name.text = reservation.name
-        cell.partySize.text = "\(reservation.size)"
-        let time = NSDateFormatter.localizedStringFromDate(reservation.arrivalTime, dateStyle: .ShortStyle, timeStyle: .ShortStyle)
-        cell.timeArrived.text = time
+        if indexPath.section == 0 {
+            cell.backgroundColor = UIColor.grayColor()
+        } else {
+            let reservation = reservations[indexPath.row]
+            cell.name.text = reservation.name
+            cell.partySize.text = "\(reservation.size)"
+            let time = NSDateFormatter.localizedStringFromDate(reservation.arrivalTime, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+            cell.timeArrived.text = time
+            
+        }
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reservations.count
+        if section ==  0 {
+            return 1
+        } else {
+            return reservations.count
+        }
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
     }
 
     
     func calculateAverageWait() {
+        guard reservations.count > 0 else { return }
         let arrives = reservations.map { $0.arrivalTime }
         let waits = arrives.map { NSDate().timeIntervalSinceDate($0)  }
         let average = (waits.reduce(0,combine: +) / Double(waits.count))
