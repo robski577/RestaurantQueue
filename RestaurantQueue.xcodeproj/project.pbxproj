@@ -20,6 +20,8 @@
 		05EF4B3E1CC9A5E6003C8F8B /* AddReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B3D1CC9A5E6003C8F8B /* AddReservationViewController.swift */; };
 		05EF4B401CC9A758003C8F8B /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B3F1CC9A758003C8F8B /* Reservation.swift */; };
 		05EF4B441CCB17F8003C8F8B /* ReservationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B431CCB17F8003C8F8B /* ReservationCell.swift */; };
+		817477171CCD565600C74963 /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817477161CCD565600C74963 /* TableCell.swift */; };
+		8174771B1CCD581300C74963 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B3F1CC9A758003C8F8B /* Reservation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +40,9 @@
 		05EF4B351CC98C97003C8F8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		05EF4B371CC98C97003C8F8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05EF4B3D1CC9A5E6003C8F8B /* AddReservationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReservationViewController.swift; sourceTree = "<group>"; };
-		05EF4B3F1CC9A758003C8F8B /* Reservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
+		05EF4B3F1CC9A758003C8F8B /* Reservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reservation.swift; path = RestaurantQueue/Reservation.swift; sourceTree = "<group>"; };
 		05EF4B431CCB17F8003C8F8B /* ReservationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationCell.swift; sourceTree = "<group>"; };
+		817477161CCD565600C74963 /* TableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,7 @@
 		05EF4B0A1CC98C56003C8F8B = {
 			isa = PBXGroup;
 			children = (
+				817477181CCD575000C74963 /* Shared */,
 				05EF4B151CC98C56003C8F8B /* RestaurantQueue */,
 				05EF4B2D1CC98C97003C8F8B /* RestaurantQueueTV */,
 				05EF4B141CC98C56003C8F8B /* Products */,
@@ -88,7 +92,6 @@
 				05EF4B1F1CC98C56003C8F8B /* LaunchScreen.storyboard */,
 				05EF4B221CC98C56003C8F8B /* Info.plist */,
 				05EF4B3D1CC9A5E6003C8F8B /* AddReservationViewController.swift */,
-				05EF4B3F1CC9A758003C8F8B /* Reservation.swift */,
 				05EF4B431CCB17F8003C8F8B /* ReservationCell.swift */,
 				0535B0EB1CCB249E0066D9C3 /* PassReservationBackToPreviousViewControllerDelegateProtocol.swift */,
 			);
@@ -100,11 +103,20 @@
 			children = (
 				05EF4B2E1CC98C97003C8F8B /* AppDelegate.swift */,
 				05EF4B301CC98C97003C8F8B /* ViewController.swift */,
+				817477161CCD565600C74963 /* TableCell.swift */,
 				05EF4B321CC98C97003C8F8B /* Main.storyboard */,
 				05EF4B351CC98C97003C8F8B /* Assets.xcassets */,
 				05EF4B371CC98C97003C8F8B /* Info.plist */,
 			);
 			path = RestaurantQueueTV;
+			sourceTree = "<group>";
+		};
+		817477181CCD575000C74963 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				05EF4B3F1CC9A758003C8F8B /* Reservation.swift */,
+			);
+			name = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,7 +234,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				817477171CCD565600C74963 /* TableCell.swift in Sources */,
 				05EF4B311CC98C97003C8F8B /* ViewController.swift in Sources */,
+				8174771B1CCD581300C74963 /* Reservation.swift in Sources */,
 				05EF4B2F1CC98C97003C8F8B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
