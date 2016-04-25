@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import CoreBluetooth
 
-class TVReservationListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TVReservationListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var avgWaitTimeLabel: UILabel!
     
+    var cm: CBCentralManager!
+
+    
     var reservations = [Reservation]()
+    
     var averageWaitTime = 0 {
         didSet {
             avgWaitTimeLabel.text = "\(averageWaitTime) minutes"
@@ -34,6 +39,9 @@ class TVReservationListViewController: UIViewController, UITableViewDelegate, UI
         let timer = NSTimer(timeInterval: 10.0, target: self, selector: #selector(calculateAverageWait), userInfo: nil, repeats: true)
         timer.fire()
         NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+        cm = CBCentralManager(delegate: self, queue: nil)
+        
+        cm!.scanForPeripheralsWithServices(nil, options: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,5 +85,62 @@ class TVReservationListViewController: UIViewController, UITableViewDelegate, UI
         let average = (waits.reduce(0,combine: +) / Double(waits.count))
         averageWaitTime = Int(average/60)
     }
+    
+    //btStuff
+    
+    func centralManagerDidUpdateState(central: CBCentralManager) {
+            switch central.state {
+            case .PoweredOn:
+                print("state is powered on")
+                break
+            case .PoweredOff:
+                print("state is powered off")
+                break
+            case .Resetting:
+                print("state is resetting")
+                break
+            case .Unauthorized:
+                print("state is unauthorized")
+                break
+            case .Unknown:
+                print("state is unknown")
+                break
+            case .Unsupported:
+                print("state is unsupported")
+                break
+        }
+        //guard central.state == .PoweredOn else { return }
+        
+        central.scanForPeripheralsWithServices(nil, options: nil)
+        print("scanning: \(central.isScanning)")
+    }
+    
+    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+        print(peripheral.name)
+    }
+    
+    
+    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+        central.stopScan()
+        peripheral.delegate = self
+        peripheral.discoverServices(nil)
+    }
+    
+    
+    
+    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+        if error != nil {
+            for service in peripheral.services! {
+                peripheral.discoverCharacteristics(nil, forService: service)
+            }
+        }
+    }
+    
+    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+        for characteristic in service.characteristics! {
+            print("service: \(service)")
+            print("characteristic: \(characteristic)")
+            print("value: \(peripheral.readValueForCharacteristic(characteristic))")
+        }
+    }
 }
-

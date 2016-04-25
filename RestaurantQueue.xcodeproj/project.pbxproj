@@ -172,6 +172,11 @@
 					05EF4B2B1CC98C97003C8F8B = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 6NZ8EK4C5H;
+						SystemCapabilities = {
+							com.apple.GameControllers.appletvos = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
