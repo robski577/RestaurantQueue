@@ -9,7 +9,7 @@
 import Foundation
 
 // Reservation information neatly packaged inside of a structure.
-struct Reservation {
+struct Reservation: Equatable {
     var name: String
     var size: Int
     var arrivalTime: NSDate
@@ -19,4 +19,8 @@ struct Reservation {
         self.size = size
         self.arrivalTime = arrivalTime
     }
+}
+
+func ==(lhs: Reservation, rhs: Reservation) {
+    return (lhs.name == rhs.name && lhs.size == rhs.size && lhs.arrivalTime == rhs.arrivalTime)
 }
