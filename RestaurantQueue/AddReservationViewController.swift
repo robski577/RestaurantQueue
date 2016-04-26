@@ -45,9 +45,9 @@ class AddReservationViewController: UIViewController {
         return
             isPresent(nameTextField, name: "Name") &&
             isPresent(sizeTextField, name: "Size") &&
-            isInteger(sizeTextField, name: "Size") &&
-            isPresent(waitTimeTextField, name: "Wait Time") &&
-            isInteger(waitTimeTextField, name: "Wait Time")
+            isInteger(sizeTextField, name: "Size") //&&
+//            isPresent(waitTimeTextField, name: "Wait Time") &&
+//            isInteger(waitTimeTextField, name: "Wait Time")
     }
     
     // Return true if a UITextField isn't nil or empty.
