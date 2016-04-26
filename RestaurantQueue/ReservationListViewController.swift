@@ -7,17 +7,29 @@
 //
 
 import UIKit
+import CoreBluetooth
 
-class ReservationListViewController: UIViewController {
+class ReservationListViewController: UIViewController, CBPeripheralManagerDelegate {
     
     @IBOutlet weak var reservationTableView: UITableView!
-    var reservations: [Reservation] = []
-
+    
+    var reservations = [Reservation]()
+    
+    let reservationListUUID = CBUUID(string: "0c8717e8-99d9-4dac-937f-b3400922befb")
+    let addUUID = CBUUID(string: "71d7d259-ed52-4bed-b7c8-a76b9c931a66")
+    let removeUUID = CBUUID(string: "a9e28957-e093-4dc6-bdcf-b26363877655")
+    var reservationService: CBMutableService!
+    var addCharacteristic: CBMutableCharacteristic!
+    var removeCharacteristic: CBMutableCharacteristic!
+    
+    var pm: CBPeripheralManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Delegate for passing back reservation information
         AddReservationViewController.delegate = self
+        pm = CBPeripheralManager(delegate: self, queue: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,8 +43,49 @@ class ReservationListViewController: UIViewController {
         reservationTableView.reloadData()
         
         // TODO: Send reservation to TV
+        pm.startAdvertising(["newReservation": "isWaiting"])
     }
+    
+    func removeReservation(reservation: Reservation) {
+        reservations = reservations.filter { $0 != reservation }
+        reservationTableView.reloadData()
+        pm.startAdvertising(["removeReservation": "isWaiting"])
+    }
+    
+    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
+        switch peripheral.state {
+        case .PoweredOn:
+            print("state is powered on")
+            break
+        case .PoweredOff:
+            print("state is powered off")
+            break
+        case .Resetting:
+            print("state is resetting")
+            break
+        case .Unauthorized:
+            print("state is unauthorized")
+            break
+        case .Unknown:
+            print("state is unknown")
+            break
+        case .Unsupported:
+            print("state is unsupported")
+            break
+        }
 
+        reservationService = CBMutableService(type: reservationListUUID, primary: true)
+        addCharacteristic = CBMutableCharacteristic(type: addUUID, properties: CBCharacteristicProperties.Read, value: nil, permissions: CBAttributePermissions.Readable)
+        removeCharacteristic = CBMutableCharacteristic(type: removeUUID, properties: CBCharacteristicProperties.Read, value: nil, permissions: CBAttributePermissions.Readable)
+        reservationService.characteristics?.append(addCharacteristic)
+        reservationService.characteristics?.append(removeCharacteristic)
+        peripheral.addService(reservationService)
+        peripheral.startAdvertising(["hostSTand":"forConnection"])
+    }
+    
+    func peripheralManager(peripheral: CBPeripheralManager, didReceiveReadRequest request: CBATTRequest) {
+        print(request)
+    }
 }
 
 

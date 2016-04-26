@@ -21,6 +21,6 @@ struct Reservation: Equatable {
     }
 }
 
-func ==(lhs: Reservation, rhs: Reservation) {
+func ==(lhs: Reservation, rhs: Reservation) -> Bool {
     return (lhs.name == rhs.name && lhs.size == rhs.size && lhs.arrivalTime == rhs.arrivalTime)
 }

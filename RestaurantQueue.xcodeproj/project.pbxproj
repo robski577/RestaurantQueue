@@ -22,6 +22,11 @@
 		05EF4B441CCB17F8003C8F8B /* ReservationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B431CCB17F8003C8F8B /* ReservationCell.swift */; };
 		817477171CCD565600C74963 /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817477161CCD565600C74963 /* TableCell.swift */; };
 		8174771B1CCD581300C74963 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B3F1CC9A758003C8F8B /* Reservation.swift */; };
+		81CA44CD1CCEE91200FB0B19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CA44CC1CCEE91200FB0B19 /* AppDelegate.swift */; };
+		81CA44CF1CCEE91200FB0B19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CA44CE1CCEE91200FB0B19 /* ViewController.swift */; };
+		81CA44D11CCEE91200FB0B19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81CA44D01CCEE91200FB0B19 /* Assets.xcassets */; };
+		81CA44D41CCEE91200FB0B19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81CA44D21CCEE91200FB0B19 /* Main.storyboard */; };
+		81CA44D91CCEEC6D00FB0B19 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EF4B3F1CC9A758003C8F8B /* Reservation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +48,12 @@
 		05EF4B3F1CC9A758003C8F8B /* Reservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reservation.swift; path = RestaurantQueue/Reservation.swift; sourceTree = "<group>"; };
 		05EF4B431CCB17F8003C8F8B /* ReservationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationCell.swift; sourceTree = "<group>"; };
 		817477161CCD565600C74963 /* TableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
+		81CA44CA1CCEE91200FB0B19 /* RestaurantQueueMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantQueueMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		81CA44CC1CCEE91200FB0B19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		81CA44CE1CCEE91200FB0B19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		81CA44D01CCEE91200FB0B19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		81CA44D31CCEE91200FB0B19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		81CA44D51CCEE91200FB0B19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +71,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		81CA44C71CCEE91200FB0B19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -69,6 +87,7 @@
 				817477181CCD575000C74963 /* Shared */,
 				05EF4B151CC98C56003C8F8B /* RestaurantQueue */,
 				05EF4B2D1CC98C97003C8F8B /* RestaurantQueueTV */,
+				81CA44CB1CCEE91200FB0B19 /* RestaurantQueueMac */,
 				05EF4B141CC98C56003C8F8B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -78,6 +97,7 @@
 			children = (
 				05EF4B131CC98C56003C8F8B /* RestaurantQueue.app */,
 				05EF4B2C1CC98C97003C8F8B /* RestaurantQueueTV.app */,
+				81CA44CA1CCEE91200FB0B19 /* RestaurantQueueMac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,6 +139,18 @@
 			name = Shared;
 			sourceTree = "<group>";
 		};
+		81CA44CB1CCEE91200FB0B19 /* RestaurantQueueMac */ = {
+			isa = PBXGroup;
+			children = (
+				81CA44CC1CCEE91200FB0B19 /* AppDelegate.swift */,
+				81CA44CE1CCEE91200FB0B19 /* ViewController.swift */,
+				81CA44D01CCEE91200FB0B19 /* Assets.xcassets */,
+				81CA44D21CCEE91200FB0B19 /* Main.storyboard */,
+				81CA44D51CCEE91200FB0B19 /* Info.plist */,
+			);
+			path = RestaurantQueueMac;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -156,6 +188,23 @@
 			productReference = 05EF4B2C1CC98C97003C8F8B /* RestaurantQueueTV.app */;
 			productType = "com.apple.product-type.application";
 		};
+		81CA44C91CCEE91200FB0B19 /* RestaurantQueueMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81CA44D81CCEE91200FB0B19 /* Build configuration list for PBXNativeTarget "RestaurantQueueMac" */;
+			buildPhases = (
+				81CA44C61CCEE91200FB0B19 /* Sources */,
+				81CA44C71CCEE91200FB0B19 /* Frameworks */,
+				81CA44C81CCEE91200FB0B19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RestaurantQueueMac;
+			productName = RestaurantQueueMac;
+			productReference = 81CA44CA1CCEE91200FB0B19 /* RestaurantQueueMac.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -178,6 +227,9 @@
 							};
 						};
 					};
+					81CA44C91CCEE91200FB0B19 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
 			buildConfigurationList = 05EF4B0E1CC98C56003C8F8B /* Build configuration list for PBXProject "RestaurantQueue" */;
@@ -195,6 +247,7 @@
 			targets = (
 				05EF4B121CC98C56003C8F8B /* RestaurantQueue */,
 				05EF4B2B1CC98C97003C8F8B /* RestaurantQueueTV */,
+				81CA44C91CCEE91200FB0B19 /* RestaurantQueueMac */,
 			);
 		};
 /* End PBXProject section */
@@ -216,6 +269,15 @@
 			files = (
 				05EF4B361CC98C97003C8F8B /* Assets.xcassets in Resources */,
 				05EF4B341CC98C97003C8F8B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81CA44C81CCEE91200FB0B19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81CA44D11CCEE91200FB0B19 /* Assets.xcassets in Resources */,
+				81CA44D41CCEE91200FB0B19 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +308,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		81CA44C61CCEE91200FB0B19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81CA44CF1CCEE91200FB0B19 /* ViewController.swift in Sources */,
+				81CA44CD1CCEE91200FB0B19 /* AppDelegate.swift in Sources */,
+				81CA44D91CCEEC6D00FB0B19 /* Reservation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -269,6 +341,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				05EF4B331CC98C97003C8F8B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		81CA44D21CCEE91200FB0B19 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				81CA44D31CCEE91200FB0B19 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -419,6 +499,36 @@
 			};
 			name = Release;
 		};
+		81CA44D61CCEE91200FB0B19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = RestaurantQueueMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.minneapolis.RestaurantQueueMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		81CA44D71CCEE91200FB0B19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = RestaurantQueueMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.minneapolis.RestaurantQueueMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -448,6 +558,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		81CA44D81CCEE91200FB0B19 /* Build configuration list for PBXNativeTarget "RestaurantQueueMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81CA44D61CCEE91200FB0B19 /* Debug */,
+				81CA44D71CCEE91200FB0B19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
