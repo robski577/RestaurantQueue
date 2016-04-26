@@ -18,6 +18,12 @@ class ReservationListViewController: UIViewController {
         
         // Delegate for passing back reservation information
         AddReservationViewController.delegate = self
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: "longPress:")
+        longPress.minimumPressDuration = 0.5
+        longPress.delegate = self
+        longPress.delaysTouchesBegan = true
+        self.reservationTableView.addGestureRecognizer(longPress)
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,6 +50,12 @@ extension ReservationListViewController: UITableViewDataSource {
         cell.partySizeLabel.text = String(reservations[indexPath.row].size)
         let displayTime =  NSDateFormatter.localizedStringFromDate(reservations[indexPath.row].arrivalTime, dateStyle: .NoStyle, timeStyle: .ShortStyle)
         cell.arrivalTime.text = String(displayTime)
+        
+        // Highlight ready reservations
+        if reservations[indexPath.row].isReady {
+            cell.backgroundColor = UIColor.greenColor()
+        }
+        
         return cell
     }
     
@@ -51,8 +63,35 @@ extension ReservationListViewController: UITableViewDataSource {
         return reservations.count
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Ready"
+        } else {
+            return "Waiting"
+        }
+    }
+    
 }
 
+extension ReservationListViewController: UIGestureRecognizerDelegate {
+    
+    func longPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        if (gestureRecognizer.state != .Ended) {
+            return
+        }
+        
+        let p = gestureRecognizer.locationInView(self.reservationTableView)
+        
+        if let indexPath = self.reservationTableView.indexPathForRowAtPoint(p) {
+            reservations[indexPath.row].isReady = true
+        }
+    }
+    
+}
 
 extension ReservationListViewController: passReservationBackToPreviousViewControllerDelegate {
     
