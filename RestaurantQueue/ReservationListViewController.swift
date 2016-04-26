@@ -41,6 +41,9 @@ extension ReservationListViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = reservationTableView.dequeueReusableCellWithIdentifier("Reservation Cell", forIndexPath: indexPath) as! ReservationCell
         cell.nameLabel.text = reservations[indexPath.row].name
+        cell.partySizeLabel.text = String(reservations[indexPath.row].size)
+        let displayTime =  NSDateFormatter.localizedStringFromDate(reservations[indexPath.row].arrivalTime, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+        cell.arrivalTime.text = String(displayTime)
         return cell
     }
     

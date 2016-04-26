@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -29,6 +30,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMW-kY-naA">
+                                                    <rect key="frame" x="190" y="11" width="33" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="33" id="5Kv-x1-NaI"/>
+                                                        <constraint firstAttribute="width" secondItem="yMW-kY-naA" secondAttribute="height" multiplier="11:7" id="Aaw-u9-SQk"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arrival Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZqA-Sc-YN1">
+                                                    <rect key="frame" x="265" y="11" width="327" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="327" id="eHz-pK-77c"/>
+                                                        <constraint firstAttribute="width" secondItem="ZqA-Sc-YN1" secondAttribute="height" multiplier="109:7" id="fTI-qs-2mB"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Party Name " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcL-x7-kPC">
                                                     <rect key="frame" x="21" y="11" width="143" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -37,12 +58,18 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ZqA-Sc-YN1" secondAttribute="trailing" id="8e5-8r-vDT"/>
+                                                <constraint firstItem="yMW-kY-naA" firstAttribute="leading" secondItem="lcL-x7-kPC" secondAttribute="trailing" constant="26" id="Iub-2l-Efa"/>
+                                                <constraint firstItem="ZqA-Sc-YN1" firstAttribute="top" secondItem="SuM-tM-9l8" secondAttribute="topMargin" constant="3" id="VqR-or-v4H"/>
+                                                <constraint firstItem="yMW-kY-naA" firstAttribute="top" secondItem="SuM-tM-9l8" secondAttribute="topMargin" constant="3" id="X2L-i1-2U0"/>
                                                 <constraint firstItem="lcL-x7-kPC" firstAttribute="centerY" secondItem="SuM-tM-9l8" secondAttribute="centerY" id="fJq-jh-s5K"/>
                                                 <constraint firstItem="lcL-x7-kPC" firstAttribute="leading" secondItem="SuM-tM-9l8" secondAttribute="leadingMargin" constant="13" id="h9b-A0-h9E"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="arrivalTime" destination="ZqA-Sc-YN1" id="P7c-lu-CZD"/>
                                             <outlet property="nameLabel" destination="lcL-x7-kPC" id="Y83-1N-9oz"/>
+                                            <outlet property="partySizeLabel" destination="yMW-kY-naA" id="wDT-1O-k1d"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -9,5 +9,12 @@
 import UIKit
 
 class ReservationCell: UITableViewCell {
+    
     @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var partySizeLabel: UILabel!
+    
+    @IBOutlet weak var arrivalTime: UILabel!
+    
+    
 }

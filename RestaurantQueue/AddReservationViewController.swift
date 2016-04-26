@@ -32,6 +32,7 @@ class AddReservationViewController: UIViewController {
             let name = nameTextField.text
             let size = Int(sizeTextField.text!)
             let reservation = Reservation(name: name!, size: size!)
+            
             AddReservationViewController.delegate.passReservationBackToPreviousViewController(reservation)
             self.navigationController?.popViewControllerAnimated(true)
         }
