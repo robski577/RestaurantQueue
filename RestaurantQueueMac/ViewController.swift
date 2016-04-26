@@ -119,14 +119,26 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     }
     
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
-        print(peripheral.name)
+        print("Device: \(peripheral.name)")
+        print("Advert: \(advertisementData)")
+        print("RSSI: \(RSSI)")
+        if peripheral.name == "RFM" {
+            print("attempting to connect")
+            central.connectPeripheral(peripheral, options: nil)
+            central.stopScan()
+        }
     }
     
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+        print("connected to \(peripheral.name)")
         central.stopScan()
         peripheral.delegate = self
         peripheral.discoverServices(nil)
+    }
+    
+    func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+        print("error connecting to \(peripheral.name): \(error)")
     }
     
     

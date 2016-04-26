@@ -31,6 +31,17 @@ class ReservationListViewController: UIViewController, CBPeripheralManagerDelega
         AddReservationViewController.delegate = self
         pm = CBPeripheralManager(delegate: self, queue: nil)
     }
+    
+    func testing() {
+        let one = Reservation(name: "robert", size: 2)
+        let df = NSDateFormatter()
+        df.dateFormat = "yyyy-mm-dd HH:mm:ss"
+        let date = NSDate().dateByAddingTimeInterval(-500.00)
+        let two = Reservation(name: "steve", size: 3, arrivalTime: date)
+        let secondDate = NSDate().dateByAddingTimeInterval(-8000.00)
+        let three = Reservation(name: "james", size: 5, arrivalTime: secondDate)
+        self.addReservation(one)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -53,26 +64,8 @@ class ReservationListViewController: UIViewController, CBPeripheralManagerDelega
     }
     
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
-        switch peripheral.state {
-        case .PoweredOn:
-            print("state is powered on")
-            break
-        case .PoweredOff:
-            print("state is powered off")
-            break
-        case .Resetting:
-            print("state is resetting")
-            break
-        case .Unauthorized:
-            print("state is unauthorized")
-            break
-        case .Unknown:
-            print("state is unknown")
-            break
-        case .Unsupported:
-            print("state is unsupported")
-            break
-        }
+        print("state as peripheral")
+        printStateAsString(peripheral.state.rawValue)
 
         reservationService = CBMutableService(type: reservationListUUID, primary: true)
         addCharacteristic = CBMutableCharacteristic(type: addUUID, properties: CBCharacteristicProperties.Read, value: nil, permissions: CBAttributePermissions.Readable)
@@ -85,6 +78,33 @@ class ReservationListViewController: UIViewController, CBPeripheralManagerDelega
     
     func peripheralManager(peripheral: CBPeripheralManager, didReceiveReadRequest request: CBATTRequest) {
         print(request)
+    }
+    
+    
+    func printStateAsString(state: Int) {
+        switch state {
+            case 5:
+                print("state is powered on")
+                break
+            case 4:
+                print("state is powered off")
+                break
+            case 1:
+                print("state is resetting")
+                break
+            case 3:
+                print("state is unauthorized")
+                break
+            case 0:
+                print("state is unknown")
+                break
+            case 2:
+                print("state is unsupported")
+                break
+            default:
+                print("state is unknown")
+            break
+        }
     }
 }
 
