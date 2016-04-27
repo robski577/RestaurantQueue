@@ -8,8 +8,7 @@
 
 import Foundation
 
-// Reservation information neatly packaged inside of a structure.
-struct Reservation {
+class Reservation {
     var name: String
     var size: Int
     var arrivalTime: NSDate
