@@ -12,14 +12,22 @@ class ReservationListViewController: UIViewController {
     
     @IBOutlet weak var reservationTableView: UITableView!
     var reservations: [Reservation] = []
+    
+    var secondWindow: UIWindow?
+    var secondScreenView: UIView?
+    
+    var testLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerForScreenNotifications()
+        setupScreen()
+        
         
         // Delegate for passing back reservation information
         AddReservationViewController.delegate = self
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: "longPress:")
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(ReservationListViewController.longPress(_:)))
         longPress.minimumPressDuration = 0.5
         longPress.delegate = self
         longPress.delaysTouchesBegan = true
@@ -38,7 +46,41 @@ class ReservationListViewController: UIViewController {
         
         // TODO: Send reservation to TV
     }
-
+    
+    // MARK: AirPlay Second Screen
+    
+    func setupScreen() {
+        
+        if UIScreen.screens().count > 1 { // <-- app does not seem to see second screen
+            print("initializing second screen")
+            //instance second screen and window
+            let secondScreen = UIScreen.screens()[1]
+            secondWindow = UIWindow(frame: secondScreen.bounds)
+            //set secondScreen to be secondWindow's screen
+            secondWindow?.screen = secondScreen
+            //instance secondScreenView
+            secondScreenView = UIView(frame: secondWindow!.frame)
+            //add subview and unhide
+            secondWindow?.addSubview(secondScreenView!)
+            secondWindow?.hidden = false
+            //customize view
+            secondScreenView?.backgroundColor = UIColor.whiteColor()
+            //configure test label
+            testLabel.textAlignment = NSTextAlignment.Center
+            testLabel.font = UIFont(name: "Helvetica", size: 50.0)
+            testLabel.frame = secondScreenView!.bounds
+            testLabel.text = "Hello, Seating Area"
+            //add label to view
+            secondScreenView?.addSubview(testLabel)
+            print("second screen added")
+        }
+        
+    }
+    
+    func registerForScreenNotifications() {
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: #selector(ReservationListViewController.setupScreen), name: UIScreenDidConnectNotification, object: nil)
+    }
 }
 
 
