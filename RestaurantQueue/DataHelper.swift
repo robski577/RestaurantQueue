@@ -54,48 +54,56 @@ class DataHelper {
             let formatter = NSDateFormatter()
             let combinedTime = stripedTime[0] + " " + stripedTime[1]
             formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let ready = value[3] == "true"
+            //the server calculates the time GMT, this corrects for that
+            let arrivalTime = formatter.dateFromString(combinedTime)?.dateByAddingTimeInterval(-18000)
             
-            let arrivalTime = formatter.dateFromString(combinedTime)
             
-            let reservation = Reservation(name: name, size: size!, arrivalTime: arrivalTime!)
+            let reservation = Reservation(id: key, name: name, size: size!, arrivalTime: arrivalTime!, isReady: ready)
             reservation.id = key
             reservations.append(reservation)
         }
         return reservations
     }
     
-    static func postReservation(name: String, partySize: Int) {
+    static func postReservation(name: String, partySize: Int, completionHandler: (reservations: [Reservation]?, error: ErrorType?) -> ()) {
         let urlString = baseUrl+"/\(name)/\(partySize)"
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, res, err in
-            print("post response: \(res)")
+            let dict = processResponse(data!)
+            let reservations = processDict(dict)
+            completionHandler(reservations: reservations, error: err)
         }
         task.resume()
     }
     
-    static func seatReservation(id: Int) {
+    static func seatReservation(id: Int, completionHandler: (reservations: [Reservation]?, error: ErrorType?) -> ()) {
         let urlString = baseUrl+"/seat/\(id)"
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "PUT"
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, res, err in
-            print("post response: \(res)")
+            let dict = processResponse(data!)
+            let reservations = processDict(dict)
+            completionHandler(reservations: reservations, error: err)
         }
         task.resume()
     }
     
-    static func removeReservation(id: Int) {
-        let urlString = baseUrl+"/remove\(id)"
+    static func removeReservation(id: Int, completionHandler: (reservations: [Reservation]?, error: ErrorType?) -> ()) {
+        let urlString = baseUrl+"/remove/\(id)"
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "DELETE"
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, res, err in
-            print("post response: \(res)")
+            let dict = processResponse(data!)
+            let reservations = processDict(dict)
+            completionHandler(reservations: reservations, error: err)
         }
         task.resume()
 
