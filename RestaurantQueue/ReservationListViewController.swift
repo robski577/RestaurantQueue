@@ -14,11 +14,7 @@ class ReservationListViewController: UIViewController {
     
     // All reservations in one array.  Use computed fields to get ready and waiting reservation arrays.
     // TODO: Decide if using two separate arrays would be easier to read/maintain.
-    var reservations = [Reservation]() {
-        didSet {
-            reservationTableView.reloadData()
-        }
-    }
+    var reservations = [Reservation]()
     var readyReservations: [Reservation] {
         get {
             return reservations.filter( { $0.isReady } )
@@ -43,50 +39,59 @@ class ReservationListViewController: UIViewController {
         longPress.delegate = self
         longPress.delaysTouchesBegan = true
         self.reservationTableView.addGestureRecognizer(longPress)
-        
-        retrieveReservations()
-        }
+        viewUpdateTimer = NSTimer(timeInterval: 1.0, target: self, selector: #selector(checkReservations), userInfo: nil, repeats: true)
+        NSRunLoop.mainRunLoop().addTimer(viewUpdateTimer, forMode: NSDefaultRunLoopMode)
+    }
+
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         retrieveReservations()
     }
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    func addReservation(reservation: Reservation) {
-        
-    }
+
     
     func retrieveReservations() {
         DataHelper.requestReservations{ response, error in
-            self.reservations = response!
+            if error == nil {
+                self.reservations = response!
+            }
         }
     }
     
     func sendRemovalRequest(id: Int) {
-        DataHelper.removeReservation(id)
-        retrieveReservations()
-    }
-    
-    func sendAddRequest(name: String, partySize: Int) {
-        DataHelper.postReservation(name, partySize: partySize)
-        retrieveReservations()
+        DataHelper.removeReservation(id) {response, error in
+            if error == nil {
+                self.reservations = response!
+            }
+        }
     }
     
     func sendSeatRequest(id: Int) {
-        DataHelper.seatReservation(id)
-        retrieveReservations()
+        DataHelper.seatReservation(id) { response, error in
+            if error == nil {
+                self.reservations = response!
+            }
+        }
     }
 
 }
 
 
 extension ReservationListViewController: UITableViewDataSource {
+    
+    func checkReservations() {
+        if reservationTableView.numberOfRowsInSection(readySectionIndex) == readyReservations.count &&
+            reservationTableView.numberOfRowsInSection(waitingSectionIndex) == waitingReservations.count {
+            return
+        }
+        reservationTableView.reloadData()
+    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
@@ -144,21 +149,28 @@ extension ReservationListViewController: UIGestureRecognizerDelegate {
             let reservation = reservations[indexPath.row]
             // Remove the reservation if it is ready.  Move to ready if it is waiting.
             if reservation.isReady {
-                DataHelper.removeReservation(reservation.id!)
+                sendRemovalRequest(reservation.id!)
             } else {
-                DataHelper.seatReservation(reservation.id!)
+                sendSeatRequest(reservation.id!)
             }
         }
-        retrieveReservations()
     }
 }
 
 extension ReservationListViewController: passReservationBackToPreviousViewControllerDelegate {
     
+    func addReservation(name: String, size: Int) {
+        DataHelper.postReservation(name, partySize: size) { reservations, error in
+            if error == nil {
+                self.reservations = reservations!
+            }
+        }
+    }
+    
     func passReservationBackToPreviousViewController(reservation: Reservation) {
     }
     
-    func reservationAddedNotification() {
-        retrieveReservations()
+    func reservationAddedNotification(name: String, size: Int) {
+        addReservation(name, size: size)
     }
 }

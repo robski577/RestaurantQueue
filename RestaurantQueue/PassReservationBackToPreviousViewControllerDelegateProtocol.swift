@@ -11,5 +11,5 @@ import Foundation
 // This is used to passing back the reservation information back to the previous view controller 😉
 protocol passReservationBackToPreviousViewControllerDelegate {
     func passReservationBackToPreviousViewController(reservation: Reservation)
-    func reservationAddedNotification()
+    func reservationAddedNotification(name: String, size: Int)
 }
