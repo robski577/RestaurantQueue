@@ -58,8 +58,16 @@ class TVReservationListViewController: UIViewController, UITableViewDelegate, UI
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell") as! TableCell
         if indexPath.section == 0 {
             cell.backgroundColor = UIColor.grayColor()
+            cell.name.text = "Name"
+            cell.partySize.text = "Party Size"
+            cell.timeArrived.text = "Time Arrived"
         } else {
             let reservation = reservations[indexPath.row]
+            if reservation.isReady {
+                cell.backgroundColor = UIColor.greenColor()
+            } else {
+                cell.backgroundColor = nil
+            }
             cell.name.text = reservation.name
             cell.partySize.text = "\(reservation.size)"
             let time = NSDateFormatter.localizedStringFromDate(reservation.arrivalTime, dateStyle: .NoStyle, timeStyle: .ShortStyle)
