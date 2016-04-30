@@ -14,7 +14,11 @@ class ReservationListViewController: UIViewController {
     
     // All reservations in one array.  Use computed fields to get ready and waiting reservation arrays.
     // TODO: Decide if using two separate arrays would be easier to read/maintain.
-    var reservations = [Reservation]()
+    var reservations = [Reservation]() {
+        didSet {
+            reservationTableView.reloadData()
+        }
+    }
     var readyReservations: [Reservation] {
         get {
             return reservations.filter( { $0.isReady } )
@@ -31,7 +35,6 @@ class ReservationListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Delegate for passing back reservation information
         AddReservationViewController.delegate = self
         
@@ -41,15 +44,12 @@ class ReservationListViewController: UIViewController {
         longPress.delaysTouchesBegan = true
         self.reservationTableView.addGestureRecognizer(longPress)
         
-        // TODO: TEST DATA REMOVE
-        let testData = [
-            ("One", 5),
-            ("Two", 55),
-            ("Three", 4),
-            ("Five", 17)
-        ]
-        reservations = testData.map { Reservation(name: $0.0, size: $0.1) }
-
+        retrieveReservations()
+        }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        retrieveReservations()
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,10 +59,28 @@ class ReservationListViewController: UIViewController {
     
     
     func addReservation(reservation: Reservation) {
-        reservations.append(reservation)
-        reservationTableView.reloadData()
         
-        // TODO: Send reservation to TV
+    }
+    
+    func retrieveReservations() {
+        DataHelper.requestReservations{ response, error in
+            self.reservations = response!
+        }
+    }
+    
+    func sendRemovalRequest(id: Int) {
+        DataHelper.removeReservation(id)
+        retrieveReservations()
+    }
+    
+    func sendAddRequest(name: String, partySize: Int) {
+        DataHelper.postReservation(name, partySize: partySize)
+        retrieveReservations()
+    }
+    
+    func sendSeatRequest(id: Int) {
+        DataHelper.seatReservation(id)
+        retrieveReservations()
     }
 
 }
@@ -126,21 +144,21 @@ extension ReservationListViewController: UIGestureRecognizerDelegate {
             let reservation = reservations[indexPath.row]
             // Remove the reservation if it is ready.  Move to ready if it is waiting.
             if reservation.isReady {
-                reservations.removeAtIndex(indexPath.row)
+                DataHelper.removeReservation(reservation.id!)
             } else {
-                reservation.isReady = true
+                DataHelper.seatReservation(reservation.id!)
             }
         }
-        
-        reservationTableView.reloadData()
+        retrieveReservations()
     }
-    
 }
 
 extension ReservationListViewController: passReservationBackToPreviousViewControllerDelegate {
     
     func passReservationBackToPreviousViewController(reservation: Reservation) {
-        addReservation(reservation)
     }
     
+    func reservationAddedNotification() {
+        retrieveReservations()
+    }
 }
