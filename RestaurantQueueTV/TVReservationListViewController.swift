@@ -14,6 +14,7 @@ class TVReservationListViewController: UIViewController, UITableViewDelegate, UI
     @IBOutlet var avgWaitTimeLabel: UILabel!
     
     var reservations = [Reservation]()
+
     var averageWaitTime = 0 {
         didSet {
             avgWaitTimeLabel.text = "\(averageWaitTime) minutes"
@@ -39,6 +40,17 @@ class TVReservationListViewController: UIViewController, UITableViewDelegate, UI
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func checkReservations() {
+        DataHelper.requestReservations { reservations, error in
+            self.reservations = reservations!
+            self.reservations.sortInPlace {  $0.isReady && !$1.isReady  }
+        }
+    }
+    
+    func checkTableView() {
+        tableView.reloadData()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
