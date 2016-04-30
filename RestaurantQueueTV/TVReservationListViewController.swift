@@ -25,16 +25,12 @@ class TVReservationListViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        reservations.append(Reservation(name: "robert", size: 2))
-        let df = NSDateFormatter()
-        df.dateFormat = "yyyy-mm-dd HH:mm:ss"
-        let date = NSDate().dateByAddingTimeInterval(-500.00)
-        reservations.append(Reservation(name: "steve", size: 3, arrivalTime: date))
-        let secondDate = NSDate().dateByAddingTimeInterval(-8000.00)
-        reservations.append(Reservation(name: "james", size: 5, arrivalTime: secondDate))
-        let timer = NSTimer(timeInterval: 10.0, target: self, selector: #selector(calculateAverageWait), userInfo: nil, repeats: true)
-        timer.fire()
-        NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+        let averageTimer = NSTimer(timeInterval: 10.0, target: self, selector: #selector(calculateAverageWait), userInfo: nil, repeats: true)
+        let tableViewTimer = NSTimer(timeInterval: 1.0, target: self, selector: #selector(checkTableView), userInfo: nil, repeats: true)
+        let reservationTimer = NSTimer(timeInterval: 5.0, target: self, selector: #selector(checkReservations), userInfo: nil, repeats: true)
+        NSRunLoop.mainRunLoop().addTimer(tableViewTimer, forMode: NSDefaultRunLoopMode)
+        NSRunLoop.mainRunLoop().addTimer(averageTimer, forMode: NSDefaultRunLoopMode)
+        NSRunLoop.mainRunLoop().addTimer(reservationTimer, forMode: NSDefaultRunLoopMode)
     }
 
     override func didReceiveMemoryWarning() {
