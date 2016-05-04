@@ -25,7 +25,7 @@ class ReservationListViewController: UIViewController {
             return reservations.filter( { !$0.isReady } )
         }
     }
-    
+    var viewUpdateTimer: NSTimer!
     let readySectionIndex = 0
     let waitingSectionIndex = 1
 
