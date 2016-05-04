@@ -31,9 +31,7 @@ class AddReservationViewController: UIViewController {
         if isValidData() {
             let name = nameTextField.text
             let size = Int(sizeTextField.text!)
-            let reservation = Reservation(name: name!, size: size!)
-            
-            AddReservationViewController.delegate.passReservationBackToPreviousViewController(reservation)
+            AddReservationViewController.delegate.reservationAddedNotification(name!, size: size!)
             self.navigationController?.popViewControllerAnimated(true)
         }
     }

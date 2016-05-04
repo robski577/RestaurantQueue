@@ -25,13 +25,12 @@ class ReservationListViewController: UIViewController {
             return reservations.filter( { !$0.isReady } )
         }
     }
-    
+    var viewUpdateTimer: NSTimer!
     let readySectionIndex = 0
     let waitingSectionIndex = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Delegate for passing back reservation information
         AddReservationViewController.delegate = self
         
@@ -40,35 +39,59 @@ class ReservationListViewController: UIViewController {
         longPress.delegate = self
         longPress.delaysTouchesBegan = true
         self.reservationTableView.addGestureRecognizer(longPress)
-        
-        // TODO: TEST DATA REMOVE
-        let testData = [
-            ("One", 5),
-            ("Two", 55),
-            ("Three", 4),
-            ("Five", 17)
-        ]
-        reservations = testData.map { Reservation(name: $0.0, size: $0.1) }
-
+        viewUpdateTimer = NSTimer(timeInterval: 1.0, target: self, selector: #selector(checkReservations), userInfo: nil, repeats: true)
+        NSRunLoop.mainRunLoop().addTimer(viewUpdateTimer, forMode: NSDefaultRunLoopMode)
     }
 
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        retrieveReservations()
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
+    func retrieveReservations() {
+        DataHelper.requestReservations{ response, error in
+            if error == nil {
+                self.reservations = response!
+            }
+        }
+    }
     
-    func addReservation(reservation: Reservation) {
-        reservations.append(reservation)
-        reservationTableView.reloadData()
-        
-        // TODO: Send reservation to TV
+    func sendRemovalRequest(id: Int) {
+        DataHelper.removeReservation(id) {response, error in
+            if error == nil {
+                self.reservations = response!
+            }
+        }
+    }
+    
+    func sendSeatRequest(id: Int) {
+        DataHelper.seatReservation(id) { response, error in
+            if error == nil {
+                self.reservations = response!
+            }
+        }
     }
 
 }
 
 
 extension ReservationListViewController: UITableViewDataSource {
+    
+    func checkReservations() {
+        if reservationTableView.numberOfRowsInSection(readySectionIndex) == readyReservations.count &&
+            reservationTableView.numberOfRowsInSection(waitingSectionIndex) == waitingReservations.count {
+            return
+        }
+        reservationTableView.reloadData()
+    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
@@ -126,21 +149,28 @@ extension ReservationListViewController: UIGestureRecognizerDelegate {
             let reservation = reservations[indexPath.row]
             // Remove the reservation if it is ready.  Move to ready if it is waiting.
             if reservation.isReady {
-                reservations.removeAtIndex(indexPath.row)
+                sendRemovalRequest(reservation.id!)
             } else {
-                reservation.isReady = true
+                sendSeatRequest(reservation.id!)
             }
         }
-        
-        reservationTableView.reloadData()
     }
-    
 }
 
 extension ReservationListViewController: passReservationBackToPreviousViewControllerDelegate {
     
-    func passReservationBackToPreviousViewController(reservation: Reservation) {
-        addReservation(reservation)
+    func addReservation(name: String, size: Int) {
+        DataHelper.postReservation(name, partySize: size) { reservations, error in
+            if error == nil {
+                self.reservations = reservations!
+            }
+        }
     }
     
+    func passReservationBackToPreviousViewController(reservation: Reservation) {
+    }
+    
+    func reservationAddedNotification(name: String, size: Int) {
+        addReservation(name, size: size)
+    }
 }

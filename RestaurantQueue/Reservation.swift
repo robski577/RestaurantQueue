@@ -9,6 +9,7 @@
 import Foundation
 
 class Reservation {
+    var id: Int?
     var name: String
     var size: Int
     var arrivalTime: NSDate
@@ -19,5 +20,13 @@ class Reservation {
         self.size = size
         self.arrivalTime = arrivalTime
         self.isReady = false
+    }
+    
+    init(id: Int, name: String, size: Int, arrivalTime: NSDate, isReady: Bool) {
+        self.id = id
+        self.name = name
+        self.size = size
+        self.arrivalTime = arrivalTime
+        self.isReady = isReady
     }
 }
