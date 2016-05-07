@@ -177,6 +177,28 @@ protocol passReservationBackToPreviousViewControllerDelegate {
 ```
 
 #### Reservation
+A simple class to hold the reservation data.
 ``` swift
-
+class Reservation {
+    var id: Int?
+    var name: String
+    var size: Int
+    var arrivalTime: NSDate
+    var isReady: Bool
+    
+    init(name: String, size: Int, arrivalTime: NSDate = NSDate()) {
+        self.name = name
+        self.size = size
+        self.arrivalTime = arrivalTime
+        self.isReady = false
+    }
+    
+    init(id: Int, name: String, size: Int, arrivalTime: NSDate, isReady: Bool) {
+        self.id = id
+        self.name = name
+        self.size = size
+        self.arrivalTime = arrivalTime
+        self.isReady = isReady
+    }
+}
 ```
