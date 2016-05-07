@@ -104,7 +104,8 @@ func addReservation(name: String, size: Int) {
     }
 }
 ```
-###### add Reservation
+###### Add Reservation View
+This view lets the user add a new reservation to the queue.  The method below is called when the user clicks the "Add" button after filling out the name and number of people for the new reservation.  First we check if the data is valid.  If it is, we create a new reservation object and pass it back to the main view.
 ``` swift
 @IBAction func addButtonClicked(sender: UIButton) {
   if isValidData() {
@@ -117,6 +118,7 @@ func addReservation(name: String, size: Int) {
   }
 }
 ```
+The following code handles the input validation.  If the user enteres invalid data, an alert will pop up letting them know how to fix it.
 ``` swift 
 private func isValidData() -> Bool {
       return
@@ -157,6 +159,7 @@ private func showAlert(title: String, message: String) {
   self.presentViewController(alertController, animated: true, completion: nil)
 }
 ```
+The main view implements this protocol to get the reservation information from the Add Reservation view.  It gets added as a delegate to the Add Reservation view in the Main view loads.
 ``` swift 
 // This is used to passing back the reservation information back to the previous view controller 😉
 protocol passReservationBackToPreviousViewControllerDelegate {
