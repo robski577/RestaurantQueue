@@ -167,8 +167,68 @@ protocol passReservationBackToPreviousViewControllerDelegate {
 }
 ```
 ##### tvOS Views
-``` swift
+###### Main View
+The one and only view on the TV displays a list of reservations currently waiting and ready to seat.  The reservations are updated periodically from the server.
 
+Three different timers are started when the view loads: one to update the average wait time, another to update the table view contents, and one to sync with the server.
+``` swift
+override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view, typically from a nib.
+    let averageTimer = NSTimer(timeInterval: 10.0, target: self, selector: #selector(calculateAverageWait), userInfo: nil, repeats: true)
+    let tableViewTimer = NSTimer(timeInterval: 1.0, target: self, selector: #selector(checkTableView), userInfo: nil, repeats: true)
+    let reservationTimer = NSTimer(timeInterval: 5.0, target: self, selector: #selector(checkReservations), userInfo: nil, repeats: true)
+    NSRunLoop.mainRunLoop().addTimer(tableViewTimer, forMode: NSDefaultRunLoopMode)
+    NSRunLoop.mainRunLoop().addTimer(averageTimer, forMode: NSDefaultRunLoopMode)
+    NSRunLoop.mainRunLoop().addTimer(reservationTimer, forMode: NSDefaultRunLoopMode)
+}
+```
+These are the three functions that are called from the timers mentioned above.
+``` swift
+func calculateAverageWait() {
+    guard reservations.count > 0 else { return }
+    let arrives = reservations.map { $0.arrivalTime }
+    let waits = arrives.map { NSDate().timeIntervalSinceDate($0)  }
+    let average = (waits.reduce(0,combine: +) / Double(waits.count))
+    averageWaitTime = Int(average/60)
+}
+
+func checkReservations() {
+    DataHelper.requestReservations { reservations, error in
+        self.reservations = reservations!
+        self.reservations.sortInPlace {  $0.isReady && !$1.isReady  }
+    }
+}
+
+func checkTableView() {
+    tableView.reloadData()
+}
+```
+This function provides the cells for the table view.  The reservations that are ready to seat have a green background to make them stand out from the other reservations.
+``` swift
+func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+    let cell = tableView.dequeueReusableCellWithIdentifier("tableCell") as! TableCell
+    if indexPath.section == 0 {
+        cell.backgroundColor = UIColor.grayColor()
+        cell.name.text = "Name"
+        cell.partySize.text = "Party Size"
+        cell.timeArrived.text = "Time Arrived"
+    } else {
+        let reservation = reservations[indexPath.row]
+        if reservation.isReady {
+            cell.backgroundColor = UIColor.greenColor()
+        } else {
+            cell.backgroundColor = nil
+        }
+        cell.name.text = reservation.name
+        cell.partySize.text = "\(reservation.size)"
+        let time = NSDateFormatter.localizedStringFromDate(reservation.arrivalTime, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+        cell.timeArrived.text = time
+        
+    }
+    return cell
+}
 ```
 
 #### DataHelper
