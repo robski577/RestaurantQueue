@@ -232,10 +232,154 @@ func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexP
 ```
 
 #### DataHelper
+This class is a collection of static methods used to request information from our server and
+process what is returned as well as send information to the server and process the response.
+
+First we have the completionHandler, this creates a basic NSURLRequest to our server's web
+address and then asynchronously processes the response.
+
 ``` swift
+static func requestReservations(completionHandler: (reservations: [Reservation]?, error: ErrorType?) -> ()) {
+        let nsURL = NSURL(string: baseUrl)
+        let request = NSMutableURLRequest(URL: nsURL!)
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, res, err in
+            if let responseData = data {
+                let dict = processResponse(responseData)
+                let reservations = processDict(dict)
+                completionHandler(reservations: reservations, error: err)
+            }
+        }
+        task.resume()
+        
+    }
 
 ```
+this process response method takes in an NSData object and returns a dictionary 
+with a integer key and array of strings as its value. These map to our Reservation
+objects's ID as the key and its other variables as the array of strings.  It first
+converts the data object into a string value with UTF-8 encoding and then 
+splits that string on the new line. Since our data is stored in a CSV format
+we can split each line into key value pairs by using the ',' as a split condition
+now each value is then grabbed by splitting the the elements of this new array of strings
+on the ':' caracter. In most situations this would create an array of 2 strings so we can rely on the 
+value being in the second element of the array. The time syntax makes this more difficult
+since there are multiple ':' characters, so here we drop the first value and interpolate
+the remaining elements.
 
+
+``` swift 
+static func processResponse(data: NSData) -> [Int:[String]] {
+        var reservations = [Int: [String]]()
+        if let responseString = String(data: data, encoding: 8) {
+            let lines = responseString.componentsSeparatedByString("\n")
+            for line in lines {
+                var id: Int?
+                let splitLine = line.componentsSeparatedByString(",")
+                for component in splitLine {
+                    if component.containsString("id:") && !component.containsString("isReady") {
+                        let idString = component.componentsSeparatedByString(":")[1]
+                        id = Int(idString)
+                        reservations[id!] = [String]()
+                    } else if component.containsString("time") {
+                        let timeArray = component.componentsSeparatedByString(":")
+                        let time = "\(timeArray[1]):\(timeArray[2]):\(timeArray[3])"
+                        reservations[id!]?.append(time)
+                    } else if component.containsString(":") {
+                        let element = component.componentsSeparatedByString(":")[1]
+                        reservations[id!]?.append(element)
+                    }
+                }
+            }
+        }
+        return reservations
+    }
+
+```
+now that we have our elements in a dictionary format they are much closer to their swift
+object definition.  the processDict function takes in our dictionary and 
+loops over each element mapping our dictionary into our object constructor.
+the challenge again here is with the date because string to date conversion
+is pretty poorly supported in the Objective-C/Swift languages. 
+However the NSDateFormatter did allow us to reliably convert our
+formatting here, I have not experienced this being true of other
+date sources.  
+
+```
+static func processDict(dict: [Int:[String]]) -> [Reservation] {
+        var reservations = [Reservation]()
+        for (key, value) in dict {
+            let name = value[0]
+            let size = Int(value[1])
+            let stripedTime = value[2].componentsSeparatedByString(" ")
+            let formatter = NSDateFormatter()
+            let combinedTime = stripedTime[0] + " " + stripedTime[1]
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let ready = value[3] == "true"
+            //the server calculates the time GMT, this corrects for that
+            let arrivalTime = formatter.dateFromString(combinedTime)?.dateByAddingTimeInterval(-18000)
+            
+            
+            let reservation = Reservation(id: key, name: name, size: size!, arrivalTime: arrivalTime!, isReady: ready)
+            reservation.id = key
+            reservations.append(reservation)
+        }
+        return reservations
+    }
+```
+
+the remaining methods are essencially the same process with different inputs. Posting a new
+reservation sends the reservation into to our server in an NSURLRequest and our server
+returns the full list it is currently holding. We then process the response as we did initially.
+Seating a reservation sends a PUT request and again processes the response in the same manner
+and finally the delete request send the ID of the reservation and the server
+replies with the newly shortened list. 
+
+``` swift 
+static func postReservation(name: String, partySize: Int, completionHandler: (reservations: [Reservation]?, error: ErrorType?) -> ()) {
+        let urlString = baseUrl+"/\(name)/\(partySize)"
+        let url = NSURL(string: urlString)
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "POST"
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, res, err in
+            let dict = processResponse(data!)
+            let reservations = processDict(dict)
+            completionHandler(reservations: reservations, error: err)
+        }
+        task.resume()
+    }
+    
+    static func seatReservation(id: Int, completionHandler: (reservations: [Reservation]?, error: ErrorType?) -> ()) {
+        let urlString = baseUrl+"/seat/\(id)"
+        let url = NSURL(string: urlString)
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "PUT"
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, res, err in
+            let dict = processResponse(data!)
+            let reservations = processDict(dict)
+            completionHandler(reservations: reservations, error: err)
+        }
+        task.resume()
+    }
+    
+    static func removeReservation(id: Int, completionHandler: (reservations: [Reservation]?, error: ErrorType?) -> ()) {
+        let urlString = baseUrl+"/remove/\(id)"
+        let url = NSURL(string: urlString)
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "DELETE"
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, res, err in
+            let dict = processResponse(data!)
+            let reservations = processDict(dict)
+            completionHandler(reservations: reservations, error: err)
+        }
+        task.resume()
+
+    }
+
+```
 #### Reservation
 A simple class to hold the reservation data.
 ``` swift
@@ -262,3 +406,4 @@ class Reservation {
     }
 }
 ```
+
