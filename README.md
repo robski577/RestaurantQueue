@@ -407,3 +407,40 @@ class Reservation {
 }
 ```
 
+User Interface
+--------------
+##iOS
+
+
+When a new reservation enters the resteraunt, the host
+will enter his/her party name and the party size.
+![adding a reservation](http://i.imgur.com/s4AcZRQ.png)
+
+
+This now appears on the main screen along with 
+the other reservations currently waiting.
+![reservations waiting](http://i.imgur.com/wQ1ZFUT.png)
+
+When a party is ready the host long-presses the name
+and this reservations is now ready to be seated.
+![reservations ready](http://i.imgur.com/z7NtlAu.png)
+
+
+##tvOS
+
+This will mirror the view of our iOS device. 
+here we have the empty view.
+![empty view](http://i.imgur.com/TDYm8gi.png)
+
+
+When the host adds a new reservaton it will appear
+along with the average amount of time all of the 
+reservations have been waiting.
+![new reservations](http://i.imgur.com/WsPgPdS.png)
+
+When the host is ready to seat a party they also 
+move to the top of the list and turn green
+![ready to be seated](http://i.imgur.com/9KVB6Ay.png)
+
+finally the party has been removed from the list.
+![seated](http://i.imgur.com/PT0rlzd.png)
